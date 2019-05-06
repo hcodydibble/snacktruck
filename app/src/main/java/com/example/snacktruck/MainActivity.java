@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,26 +19,29 @@ public class MainActivity extends AppCompatActivity {
     String[] veggies = {"French fries", "Veggieburger", "Carrots", "Apple", "Banana", "Milkshake"};
     String[] nonVeggies = {"Cheeseburger", "Hamburger", "Hot dog"};
     ArrayList<CheckBox> checked = new ArrayList<>();
+    ArrayList<CheckBox> foodCheckboxes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LinearLayout ll = findViewById(R.id.food_list);
         ArrayList<String> foods = new ArrayList<>(Arrays.asList(veggies));
         foods.addAll(Arrays.asList(nonVeggies));
-
-        LinearLayout ll = findViewById(R.id.food_list);
+        CheckBox veg = findViewById(R.id.veggie);
+        CheckBox nonVeg = findViewById(R.id.non_veggie);
 
         for (int i = 0; i < foods.size(); i++){
             CheckBox foodCheck = new CheckBox(MainActivity.this);
             foodCheck.setText(foods.get(i));
-            foodCheck.setTag(foods.get(i));
 
             if(Arrays.asList(veggies).contains(foods.get(i))){
                 foodCheck.setTextColor(Color.GREEN);
+                foodCheck.setTag("veggie");
             }else{
                 foodCheck.setTextColor(Color.RED);
+                foodCheck.setTag("non-veggie");
             }
 
             foodCheck.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +59,69 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            foodCheckboxes.add(foodCheck);
             ll.addView(foodCheck);
         }
+
+        veg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox) v;
+                if(checkBox.isChecked()){
+                    checkBox.setChecked(true);
+                    for (int i = 0; i < foodCheckboxes.size(); i++)
+                    {
+                        CheckBox currentFood = foodCheckboxes.get(i);
+                        if (currentFood.getTag() == "veggie")
+                        {
+                            currentFood.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }else{
+                    checkBox.setChecked(false);
+                    for (int i = 0; i < foodCheckboxes.size(); i++)
+                    {
+                        CheckBox currentFood = foodCheckboxes.get(i);
+                        if (currentFood.getTag() == "veggie")
+                        {
+                            currentFood.setVisibility(View.GONE);
+                        }
+                    }
+
+                }
+            }
+        });
+
+        nonVeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox) v;
+                if(checkBox.isChecked()){
+                    checkBox.setChecked(true);
+                    for (int i = 0; i < foodCheckboxes.size(); i++)
+                    {
+                        CheckBox currentFood = foodCheckboxes.get(i);
+                        if (currentFood.getTag() == "non-veggie")
+                        {
+                            currentFood.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }else{
+                    checkBox.setChecked(false);
+                    for (int i = 0; i < foodCheckboxes.size(); i++)
+                    {
+                        CheckBox currentFood = foodCheckboxes.get(i);
+                        if (currentFood.getTag() == "non-veggie")
+                        {
+                            currentFood.setVisibility(View.GONE);
+                        }
+                    }
+
+                }
+            }
+        });
+
+
 
 
     }
