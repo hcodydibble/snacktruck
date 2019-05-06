@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                sendOrder();
+                // This is where sendOrder() would be called.
                 for(CheckBox cb : checked)
                 {
                     cb.setChecked(false);

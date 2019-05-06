@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2"></LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/non-veggie"></LinearLayout>
 
     <Button
         android:id="@+id/button"
@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/food_list" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/veggie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -45,13 +45,15 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:checked="true"
         android:text="@string/select_veggie"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        android:textColor="#00FF00"
+        app:layout_constraintEnd_toStartOf="@+id/non-veggie"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/non-veggie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -59,8 +61,10 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:checked="true"
         android:text="@string/select_non_veggie"
+        android:textColor="#FF0000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintStart_toEndOf="@+id/veggie"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
