@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         CheckBox veg = findViewById(R.id.veggie);
         CheckBox nonVeg = findViewById(R.id.non_veggie);
 
+        // Create a checkbox for each food item from the combined list
         for (int i = 0; i < foods.size(); i++){
             CheckBox foodCheck = new CheckBox(MainActivity.this);
             foodCheck.setText(foods.get(i));
 
+            // Set the text color and tag of the food item depending on which list it is in, veggie or non-veggie
             if(Arrays.asList(veggies).contains(foods.get(i))){
                 foodCheck.setTextColor(Color.GREEN);
                 foodCheck.setTag("veggie");
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 foodCheck.setTag("non-veggie");
             }
 
+            // Add an onClickListener to each created checkbox to track if the food item has been checked or not
             foodCheck.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             ll.addView(foodCheck);
         }
 
+        // Add an onClickListener to the Veggie checkbox to filter out foods if un-checked or add them back in if checked
         veg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
                         CheckBox currentFood = foodCheckboxes.get(i);
                         if (currentFood.getTag() == "veggie")
                         {
+                            currentFood.setChecked(false);
                             currentFood.setVisibility(View.GONE);
+                            checked.remove(currentFood);
                         }
                     }
 
@@ -92,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Add an onClickListener to the Non-Veggie checkbox to filter out foods if un-checked or add them back in if checked
         nonVeg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
                         CheckBox currentFood = foodCheckboxes.get(i);
                         if (currentFood.getTag() == "non-veggie")
                         {
+                            currentFood.setChecked(false);
                             currentFood.setVisibility(View.GONE);
+                            checked.remove(currentFood);
                         }
                     }
 
