@@ -1,20 +1,19 @@
 package com.example.snacktruck;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     String[] veggies = {"French fries", "Veggieburger", "Carrots", "Apple", "Banana", "Milkshake"};
     String[] nonVeggies = {"Cheeseburger", "Hamburger", "Hot dog"};
@@ -24,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.main_title_bar);
 
         LinearLayout ll = findViewById(R.id.food_list);
         ArrayList<String> foods = new ArrayList<>(Arrays.asList(veggies));

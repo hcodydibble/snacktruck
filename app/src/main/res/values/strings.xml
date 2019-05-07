@@ -3,4 +3,6 @@
     <string name="submit_button">Submit</string>
     <string name="select_veggie">Veggie</string>
     <string name="select_non_veggie">Non-Veggie</string>
+    <string name="custom_title">Snack Truck</string>
+    <string name="add_food">Add Food</string>
 </resources>
