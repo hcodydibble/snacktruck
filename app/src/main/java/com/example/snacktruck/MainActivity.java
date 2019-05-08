@@ -1,30 +1,86 @@
 package com.example.snacktruck;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
-import java.lang.reflect.Array;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     String[] veggies = {"French fries", "Veggieburger", "Carrots", "Apple", "Banana", "Milkshake"};
     String[] nonVeggies = {"Cheeseburger", "Hamburger", "Hot dog"};
-    ArrayList<CheckBox> checked = new ArrayList<>();
-    ArrayList<CheckBox> foodCheckboxes = new ArrayList<>();
+    List<CheckBox> checked = new ArrayList<>();
+    List<CheckBox> foodCheckboxes = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.addFood)
+        {
+            CustomDialog dialog = new CustomDialog(this);
+            dialog.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Bundle foodToAdd = getIntent().getExtras();
+        if (foodToAdd != null)
+        {
+            String foodName = foodToAdd.getString("FOOD_NAME");
+            String foodType = foodToAdd.getString("TYPE_OF_FOOD");
+            if (foodType.equals("Veggie"))
+            {
+                int currentSize = veggies.length;
+                int newSize = currentSize + 1;
+                String[] temp = new String [newSize];
+                for (int i = 0; i < currentSize; i++)
+                {
+                    temp[i] = veggies[i];
+                }
+
+                temp[newSize-1] = foodName.substring(0,1).toUpperCase() + foodName.substring(1).toLowerCase();
+                veggies = temp;
+            }else
+            {
+                int currentSize = nonVeggies.length;
+                int newSize = currentSize + 1;
+                String[] temp = new String [newSize];
+                for (int i = 0; i < currentSize; i++)
+                {
+                    temp[i] = nonVeggies[i];
+                }
+
+                temp[newSize-1] = foodName.substring(0,1).toUpperCase() + foodName.substring(1).toLowerCase();
+                nonVeggies = temp;
+            }
+        }
 
         LinearLayout ll = findViewById(R.id.food_list);
         ArrayList<String> foods = new ArrayList<>(Arrays.asList(veggies));
@@ -165,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                 checked.clear();
             }
         });
+
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
