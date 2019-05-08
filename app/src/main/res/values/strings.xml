@@ -3,4 +3,5 @@
     <string name="submit_button">Submit</string>
     <string name="select_veggie">Veggie</string>
     <string name="select_non_veggie">Non-Veggie</string>
+    <string name="food_instructions">Type food name here</string>
 </resources>
